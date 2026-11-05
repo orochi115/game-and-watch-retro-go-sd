@@ -776,7 +776,7 @@ LDFLAGS += -Wl,--wrap=fflush
 # section ordering — disable it rather than depend on incidental layout.
 LDFLAGS += -Wl,--no-check-sections
 # RAM-resident code (.overlay / ._ram_exec) is intentionally RWX on this MCU.
-LDFLAGS += -Wl,--no-warn-rwx-segments
+LDFLAGS += $(shell $(CC) -Wl,--no-warn-rwx-segments -Wl,--version >/dev/null 2>&1 && echo -Wl,--no-warn-rwx-segments)
 
 # default action: build all (FrogFS has no gw_*_extflash.bin payload — flash frogfs.bin instead)
 ifeq ($(DOCKER),1)
